@@ -19,7 +19,7 @@ public class UrlUtil {
             URI result = baseUri.resolve(url);
             return result.toString();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println("예외 발생");
             return null;
         }
     }

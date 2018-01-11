@@ -49,6 +49,7 @@ public final class ImageSource {
                     uri = Uri.parse(URLDecoder.decode(uriString, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     // Fallback to encoded URI. This exception is not expected.
+                    System.out.println("에러");
                 }
             }
         }

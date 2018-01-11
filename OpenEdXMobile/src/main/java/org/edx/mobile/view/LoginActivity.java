@@ -103,6 +103,12 @@ public class LoginActivity
                 showEulaDialog();
             }
         });
+        activityLoginBinding.endUserAgreementTv2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEulaDialog2();
+            }
+        });
 
         environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.LOGIN);
 
@@ -266,6 +272,10 @@ public class LoginActivity
     public void showEulaDialog() {
         environment.getRouter().showWebViewActivity(this, getString(R.string.eula_file_link),
                 getString(R.string.end_user_title));
+    }
+    public void showEulaDialog2() {
+        environment.getRouter().showWebViewActivity(this, getString(R.string.eula_file_link2),
+                getString(R.string.personal_policy));
     }
 
     // make sure that on the login activity, all errors show up as a dialog as opposed to a flying snackbar

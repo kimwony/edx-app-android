@@ -338,6 +338,7 @@ public class PlayerController extends FrameLayout {
             // the canPause/canSeekXYZ methods. This is OK, it just means we
             // assume the media can be paused and seeked, and so we don't disable
             // the buttons.
+            System.out.println("에러");
         }
     }
 

@@ -79,6 +79,11 @@ subprojects {
             project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
         }
     }
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
+    }
 }
 
 // Increases adb timeout for installing an apk. This tweak is need for slow adb installs on an

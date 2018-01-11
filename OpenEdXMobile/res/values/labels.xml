@@ -26,6 +26,8 @@
     <string name="label_close">Close</string>
     <!-- Alert dialog continue confirmation button -->
     <string name="label_continue">Continue</string>
+    <!--Alert dialog notification button-->
+    <string name="label_notification">Notification</string>
     <!-- Alert dialog submit button -->
     <string name="label_submit">Submit</string>
     <!-- Alert dialog send feedback button -->

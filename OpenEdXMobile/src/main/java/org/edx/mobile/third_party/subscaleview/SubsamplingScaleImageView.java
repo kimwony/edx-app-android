@@ -1792,6 +1792,7 @@ public class SubsamplingScaleImageView extends View {
                 return new Point(maxWidth, maxHeight);
             } catch (Exception e) {
                 // Return default
+                System.out.println("에러");
             }
         }
         return new Point(2048, 2048);

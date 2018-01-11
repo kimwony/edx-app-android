@@ -61,9 +61,17 @@ public class TranscriptManager {
 
         String hash = Sha1Util.SHA1(url);
         File file = new File(transcriptDir, hash);
-        FileOutputStream out = new FileOutputStream(file);
-        out.write(response.getBytes());
-        out.close();
+        FileOutputStream out = null;
+        try{
+            out = new FileOutputStream(file);
+            out.write(response.getBytes());
+        } finally {
+            try{
+                out.close();
+            } catch (Exception e){
+                System.out.println("에러");
+            }
+        }
     }
 
 

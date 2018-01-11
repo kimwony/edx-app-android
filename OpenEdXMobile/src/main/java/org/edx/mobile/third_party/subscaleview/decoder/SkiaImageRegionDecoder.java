@@ -51,6 +51,7 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
                 try {
                     id = Integer.parseInt(segments.get(0));
                 } catch (NumberFormatException ignored) {
+                    System.out.println("에러");
                 }
             }
 

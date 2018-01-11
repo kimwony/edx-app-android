@@ -16,7 +16,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:background="@drawable/launchbackground">
 
                 <LinearLayout
                     android:id="@+id/top_layout"
@@ -29,26 +30,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/login_edx_logo_height"
                         android:layout_marginBottom="@dimen/login_logo_margin_bottom"
-                        android:layout_marginLeft="44dp"
-                        android:layout_marginRight="44dp"
-                        android:layout_marginTop="@dimen/login_logo_margin_top">
+                        >
 
-                        <ImageView
-                            android:id="@+id/login_map"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:contentDescription="@null"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/login_screen_image" />
-
-                        <ImageView
-                            android:id="@+id/login_logo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:contentDescription="@string/phonetic_app_name"
-                            android:src="@drawable/login_screen_logo" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -167,6 +150,19 @@
                             android:textColor="@color/edx_brand_primary_base"
                             android:textSize="11sp"
                             tools:text="@string/licensing_agreement" />
+
+                        <TextView
+                            android:id="@+id/end_user_agreement_tv2"
+                            style="@style/regular_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/selectable_box_overlay"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:textColor="@color/edx_brand_primary_base"
+                            android:textSize="11sp"
+                            android:text="@string/personal_policy" />
 
                         <TextView
                             android:id="@+id/version_env_tv"

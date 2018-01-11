@@ -55,7 +55,7 @@ class AndroidHelper {
  * @return The semantic version string, or "0.0.1" if we failed to determine one.
  */
 def getVersionName = { ->
-    def description = "0.0.1";
+    def description = "1.5.2";
     try {
         def branch = System.getenv("BRANCH")
         if (null == branch || branch.isEmpty()) {
@@ -222,6 +222,7 @@ dependencies {
     androidTestCompile ("org.mockito:mockito-core:1.10.19"){
         exclude group: 'org.hamcrest'
     }
+
 }
 
 configurations {
@@ -260,7 +261,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.edx.mobile"
+        applicationId "com.nile.kmooc"
         // minimum version is Android 4.0
         minSdkVersion 14
         targetSdkVersion 21
@@ -272,15 +273,15 @@ android {
         renderscriptSupportModeEnabled true
 
         // test configuration
-        testApplicationId 'org.edx.mobile.test'
+        testApplicationId 'com.nile.kmooc.test'
 
         if (project.gradle.startParameter.taskNames.contains("screenshotTests")) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("package", "org.edx.mobile.test.screenshot");
+            map.put("package", "com.nile.kmooc.test.screenshot");
             setTestInstrumentationRunnerArguments map
         }
 
-        testInstrumentationRunner "org.edx.mobile.test.EdXTestRunner"
+        testInstrumentationRunner "com.nile.kmooc.test.EdXTestRunner"
 
         testHandleProfiling true
         testFunctionalTest true
@@ -406,6 +407,11 @@ android {
         }
 
         release {
+
+            lintOptions {
+                disable 'MissingTranslation'
+            }
+
             signingConfig signingConfigs.releasekey
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
@@ -457,3 +463,4 @@ screenshots {
     testApkTarget = 'packageProdDebuggableAndroidTest'
     connectedAndroidTestTarget = 'connectedProdDebuggableAndroidTest'
 }
+

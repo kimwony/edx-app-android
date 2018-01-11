@@ -41,7 +41,7 @@ public class MediaConsentUtils {
             case ConnectivityManager.TYPE_ETHERNET:
                 return true;
             default:
-                return !MainApplication.getEnvironment(context).getUserPrefs().isDownloadOverWifiOnly() ||
+                return MainApplication.getEnvironment(context).getUserPrefs().isDownloadOverWifiOnly() ||
                         NetworkUtil.isOnZeroRatedNetwork(context, config);
         }
     }

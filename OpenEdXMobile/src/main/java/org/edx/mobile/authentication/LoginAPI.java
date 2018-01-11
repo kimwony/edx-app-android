@@ -189,6 +189,7 @@ public class LoginAPI {
                     }
                 } catch (JsonSyntaxException ex) {
                     // Looks like the response does not contain form validation errors.
+                    System.out.println("에러");
                 }
             }
             throw new HttpStatusException(response);

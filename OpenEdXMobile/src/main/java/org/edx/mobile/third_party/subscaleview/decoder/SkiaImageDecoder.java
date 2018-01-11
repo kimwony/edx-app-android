@@ -50,6 +50,7 @@ public class SkiaImageDecoder implements ImageDecoder {
                 try {
                     id = Integer.parseInt(segments.get(0));
                 } catch (NumberFormatException ignored) {
+                    System.out.println("에러");
                 }
             }
 

@@ -14,6 +14,9 @@ import org.edx.mobile.databinding.ActivityLaunchBinding;
 import org.edx.mobile.module.analytics.Analytics;
 import org.edx.mobile.module.prefs.LoginPrefs;
 
+import android.content.Intent;
+import android.net.Uri;
+
 public class LaunchActivity extends BaseFragmentActivity {
 
     @Inject
@@ -32,8 +35,11 @@ public class LaunchActivity extends BaseFragmentActivity {
         binding.signUpBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                environment.getAnalyticsRegistry().trackUserSignUpForAccount();
-                startActivity(environment.getRouter().getRegisterIntent());
+                //environment.getAnalyticsRegistry().trackUserSignUpForAccount();
+                //startActivity(environment.getRouter().getRegisterIntent());
+                Uri uri = Uri.parse("https://www.kmooc.kr/register");
+                Intent browse = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(browse);
             }
         });
         environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.LAUNCH_ACTIVITY);

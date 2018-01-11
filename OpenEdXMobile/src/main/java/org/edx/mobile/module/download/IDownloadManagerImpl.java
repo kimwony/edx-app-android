@@ -96,7 +96,7 @@ public class IDownloadManagerImpl implements IDownloadManager {
         request.setDestinationUri(target);
         request.setTitle(title);
 
-        if (wifiOnly) {
+        if (!wifiOnly) {
             request.setAllowedNetworkTypes(Request.NETWORK_WIFI);
         } else {
             request.setAllowedNetworkTypes(Request.NETWORK_WIFI | Request.NETWORK_MOBILE);

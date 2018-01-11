@@ -136,7 +136,7 @@ public class NetworkUtil {
      */
 
     public static boolean verifyDownloadPossible(BaseFragmentActivity activity) {
-        if (new PrefManager(activity, PrefManager.Pref.WIFI).getBoolean(PrefManager.Key
+        if (!new PrefManager(activity, PrefManager.Pref.WIFI).getBoolean(PrefManager.Key
                 .DOWNLOAD_ONLY_ON_WIFI, true)) {
             if (!isConnectedWifi(activity)) {
                 activity.showInfoMessage(activity.getString(R.string.wifi_off_message));

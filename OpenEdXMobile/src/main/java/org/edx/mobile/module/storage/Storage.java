@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.MediaMetadataRetriever;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -35,6 +36,10 @@ import org.edx.mobile.util.Sha1Util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -349,25 +354,51 @@ public class Storage implements IStorage {
                 {
                     DownloadEntry e = (DownloadEntry) db.getDownloadEntryByDmId(dmId, null);
                     e.downloaded = DownloadEntry.DownloadedState.DOWNLOADED;
-                    e.filepath = nm.filepath;
+
+//                    File tt = pref.getDownloadDirectory();
+
+                    String[] tmpArr = nm.filepath.split("/");
+
+                    String user_name = tmpArr[tmpArr.length - 2];
+                    String file_name = tmpArr[tmpArr.length - 1];
+
+                    String from_path = nm.filepath.split(file_name)[0];
+
+
+                    File to_path = context.getFilesDir();
+                    String to = to_path.toString();
+
+
+                    String to2 = to.split("/files")[0] + "/videos/" + user_name + "/";
+
+                    moveFile(from_path ,file_name , to2  );
+
+//                    e.filepath = nm.filepath;
+                    e.filepath = to2 + file_name;
+
+
+
                     if(e.size<=0){
                         e.size = nm.size;
                     }
                     e.downloadedOn = System.currentTimeMillis();
                     // update file duration
                     if(e.duration==0){
+                        FileInputStream in = null;
                         try {
                             MediaMetadataRetriever r = new MediaMetadataRetriever();
-                            FileInputStream in = new FileInputStream(new File(e.filepath));
+                            in = new FileInputStream(new File(e.filepath));
                             r.setDataSource(in.getFD());
                             int duration = Integer
                                     .parseInt(r
                                             .extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
                             e.duration = duration/1000;
                             logger.debug("Duration updated to : " + duration);
-                            in.close();
+
                         } catch (Exception ex) {
                             logger.error(ex);
+                        } finally {
+                            in.close();
                         }
                     }
                     db.updateDownloadCompleteInfoByDmId(dmId, e, null);
@@ -383,6 +414,54 @@ public class Storage implements IStorage {
             callback.sendException(e);
             logger.error(e);
         }
+    }
+
+    private void moveFile(String inputPath, String inputFile, String outputPath) {
+
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+
+            //create output directory if it doesn't exist
+            File dir = new File (outputPath);
+            if (!dir.exists())
+            {
+                dir.mkdirs();
+            }
+
+            in = new FileInputStream(inputPath + inputFile);
+            out = new FileOutputStream(outputPath + inputFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+
+            if(in != null) {
+                in.close();
+                in = null;
+            }
+
+            // write the output file
+            if(out != null) {
+                out.flush();
+                out.close();
+                out = null;
+            }
+
+            // delete the original file
+            new File(inputPath + inputFile).delete();
+
+        }
+
+        catch (FileNotFoundException fnfe1) {
+            Log.e("tag", fnfe1.getMessage());
+        }
+        catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
+
     }
 
     /**
