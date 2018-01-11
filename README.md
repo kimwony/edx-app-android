@@ -1,9 +1,5 @@
 This is the source code for the edX mobile Android app. It is changing rapidly
 and its structure should not be relied upon. See http://code.edx.org for other
-adsfasdfasdfadsfadsfadsf
-
-
-
 
 parts of the edX code base.
 
