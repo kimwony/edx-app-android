@@ -20,6 +20,7 @@ import org.edx.mobile.module.prefs.PrefManager;
 import org.edx.mobile.social.facebook.FacebookProvider;
 import org.edx.mobile.social.google.GoogleOauth2;
 import org.edx.mobile.social.google.GoogleProvider;
+import org.edx.mobile.social.naver.NaverProvider;
 import org.edx.mobile.task.Task;
 import org.edx.mobile.util.Config;
 import org.edx.mobile.util.NetworkUtil;
@@ -39,7 +40,7 @@ public class SocialLoginDelegate {
 
     private Activity activity;
     private MobileLoginCallback callback;
-    private ISocial google, facebook;
+    private ISocial google, facebook, naver;
     private final LoginPrefs loginPrefs;
 
     private String userEmail;
@@ -62,6 +63,15 @@ public class SocialLoginDelegate {
         }
     };
 
+    private ISocial.Callback naverCallback = new ISocial.Callback() {
+
+        @Override
+        public void onLogin(String accessToken) {
+            logger.debug("Naver logged in; token= " + accessToken);
+            onSocialLoginSuccess(accessToken, PrefManager.Value.BACKEND_NAVER);
+        }
+    };
+
 
     public SocialLoginDelegate(Activity activity, Bundle savedInstanceState, MobileLoginCallback callback, Config config, LoginPrefs loginPrefs) {
 
@@ -75,33 +85,42 @@ public class SocialLoginDelegate {
         facebook = SocialFactory.getInstance(activity, SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_FACEBOOK, config);
         facebook.setCallback(facebookCallback);
 
+        naver = SocialFactory.getInstance(activity, SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_NAVER, config);
+        naver.setCallback(naverCallback);
+
         google.onActivityCreated(activity, savedInstanceState);
         facebook.onActivityCreated(activity, savedInstanceState);
+        naver.onActivityCreated(activity, savedInstanceState);
     }
 
     public void onActivityDestroyed() {
         google.onActivityDestroyed(activity);
         facebook.onActivityDestroyed(activity);
+        naver.onActivityDestroyed(activity);
     }
 
     public void onActivitySaveInstanceState(Bundle outState) {
         google.onActivitySaveInstanceState(activity, outState);
         facebook.onActivitySaveInstanceState(activity, outState);
+        naver.onActivitySaveInstanceState(activity, outState);
     }
 
     public void onActivityStarted() {
         google.onActivityStarted(activity);
         facebook.onActivityStarted(activity);
+        naver.onActivityStarted(activity);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         google.onActivityResult(requestCode, resultCode, data);
         facebook.onActivityResult(requestCode, resultCode, data);
+        naver.onActivityResult(requestCode, resultCode, data);
     }
 
     public void onActivityStopped() {
         google.onActivityStopped(activity);
         facebook.onActivityStopped(activity);
+        naver.onActivityStopped(activity);
     }
 
     public void socialLogin(SocialFactory.SOCIAL_SOURCE_TYPE socialType) {
@@ -109,6 +128,8 @@ public class SocialLoginDelegate {
             facebook.login();
         else if (socialType == SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_GOOGLE)
             google.login();
+        else if (socialType == SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_NAVER)
+            naver.login();
     }
 
     public void socialLogout(SocialFactory.SOCIAL_SOURCE_TYPE socialType) {
@@ -116,6 +137,8 @@ public class SocialLoginDelegate {
             facebook.logout();
         else if (socialType == SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_GOOGLE)
             google.logout();
+        else if (socialType == SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_NAVER)
+            naver.logout();
     }
 
     /**
@@ -147,6 +170,8 @@ public class SocialLoginDelegate {
             socialProvider = new FacebookProvider();
         } else if (socialType == SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_GOOGLE) {
             socialProvider = new GoogleProvider((GoogleOauth2) google);
+        } else if (socialType == SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_NAVER) {
+            socialProvider = new NaverProvider();
         }
 
         if (socialProvider != null) {
@@ -198,6 +223,14 @@ public class SocialLoginDelegate {
             } else if (backend.equalsIgnoreCase(PrefManager.Value.BACKEND_GOOGLE)) {
                 try {
                     auth = loginAPI.logInUsingGoogle(accessToken);
+                } catch (LoginAPI.AccountNotLinkedException e) {
+                    CharSequence title = ResourceUtil.getFormattedString(context.getResources(), R.string.error_account_not_linked_title_google, descParams);
+                    CharSequence desc = ResourceUtil.getFormattedString(context.getResources(), R.string.error_account_not_linked_desc_google, descParams);
+                    throw new LoginException(new LoginErrorMessage(title.toString(), desc.toString()));
+                }
+            } else if (backend.equalsIgnoreCase(PrefManager.Value.BACKEND_NAVER)) {
+                try {
+                    auth = loginAPI.logInUsingNaver(accessToken);
                 } catch (LoginAPI.AccountNotLinkedException e) {
                     CharSequence title = ResourceUtil.getFormattedString(context.getResources(), R.string.error_account_not_linked_title_google, descParams);
                     CharSequence desc = ResourceUtil.getFormattedString(context.getResources(), R.string.error_account_not_linked_desc_google, descParams);

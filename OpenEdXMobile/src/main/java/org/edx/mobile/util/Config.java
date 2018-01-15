@@ -50,6 +50,7 @@ public class Config {
     private static final String ZERO_RATING = "ZERO_RATING";
     private static final String FACEBOOK = "FACEBOOK";
     private static final String GOOGLE = "GOOGLE";
+    private static final String NAVER = "NAVER";
     private static final String TWITTER = "TWITTER";
     private static final String FABRIC = "FABRIC";
     private static final String NEW_RELIC = "NEW_RELIC";
@@ -219,6 +220,35 @@ public class Config {
 
         public boolean isEnabled() {
             return mEnabled;
+        }
+    }
+
+    public static class NaverConfig {
+        @SerializedName("ENABLED")
+        private boolean mEnabled;
+
+        @SerializedName("OAUTH_CLIENT_ID")
+        public String mClientId;
+
+        @SerializedName("OAUTH_CLIENT_SECRET")
+        public String mClientSecret;
+
+        public NaverConfig(boolean mEnabled) {
+            this.mEnabled = mEnabled;
+        }
+
+        public NaverConfig() {
+        }
+
+        public boolean isEnabled() {
+            return mEnabled;
+        }
+
+        public String getClientId() {
+            return mClientId;
+        }
+        public String getClientSecret() {
+            return mClientSecret;
         }
     }
 
@@ -615,6 +645,11 @@ public class Config {
     @NonNull
     public GoogleConfig getGoogleConfig() {
         return getObjectOrNewInstance(GOOGLE, GoogleConfig.class);
+    }
+
+    @NonNull
+    public NaverConfig getNaverConfig() {
+        return getObjectOrNewInstance(NAVER, NaverConfig.class);
     }
 
     @NonNull

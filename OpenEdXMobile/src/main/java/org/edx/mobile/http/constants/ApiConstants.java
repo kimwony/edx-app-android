@@ -62,6 +62,9 @@ public class ApiConstants {
             case GOOGLE: {
                 return PrefManager.Value.BACKEND_GOOGLE;
             }
+            case NAVER: {
+                return PrefManager.Value.BACKEND_NAVER;
+            }
             default: {
                 throw new IllegalArgumentException(authBackend.name());
             }

@@ -414,6 +414,7 @@ public interface Analytics {
         String PASSWORD = "Password";
         String FACEBOOK = "Facebook";
         String GOOGLE = "Google";
+        String NAVER = "Naver";
         String DOWNLOAD_MODULE = "downloadmodule";
         String VIDEO_LOADED = "edx.video.loaded";
         String VIDEO_PLAYED = "edx.video.played";

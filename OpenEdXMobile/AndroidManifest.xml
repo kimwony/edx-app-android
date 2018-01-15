@@ -259,6 +259,12 @@
             android:name=".view.dialog.WebViewActivity"
             android:screenOrientation="portrait" />
 
+        <!--네이버 추가 start -->
+        <activity android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity" android:label="OAuth2.0 In-app"/>
+        <!--네이버 추가 end -->
+
         <receiver android:name="org.edx.mobile.module.download.DownloadCompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />

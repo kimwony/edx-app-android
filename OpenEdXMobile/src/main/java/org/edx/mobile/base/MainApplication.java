@@ -124,6 +124,10 @@ public abstract class MainApplication extends MultiDexApplication {
             com.facebook.Settings.setApplicationId(config.getFacebookConfig().getFacebookAppId());
         }
 
+        if (config.getNaverConfig().isEnabled()) {
+            org.edx.mobile.social.naver.NaverAuth.setClientKeys(config.getNaverConfig().getClientId(), config.getNaverConfig().getClientSecret());
+        }
+
         checkIfAppVersionUpgraded(this);
 
         // Register Font Awesome module in android-iconify library

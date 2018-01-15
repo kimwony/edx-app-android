@@ -98,6 +98,11 @@ public class LoginAPI {
     }
 
     @NonNull
+    public AuthResponse logInUsingNaver(String accessToken) throws Exception {
+        return finishSocialLogIn(accessToken, LoginPrefs.AuthBackend.NAVER);
+    }
+
+    @NonNull
     private AuthResponse finishSocialLogIn(@NonNull String accessToken, @NonNull LoginPrefs.AuthBackend authBackend) throws Exception {
         final String backend = ApiConstants.getOAuthGroupIdForAuthBackend(authBackend);
         final Response<AuthResponse> response = loginService.exchangeAccessToken(accessToken, config.getOAuthClientId(), backend).execute();

@@ -1,17 +1,25 @@
 package org.edx.mobile.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.inject.Inject;
+import com.nhn.android.naverlogin.OAuthLogin;
+import com.nhn.android.naverlogin.OAuthLoginHandler;
+import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
 import org.edx.mobile.BuildConfig;
 import org.edx.mobile.R;
@@ -36,6 +44,17 @@ import org.edx.mobile.util.ResourceUtil;
 import org.edx.mobile.util.images.ErrorUtils;
 import org.edx.mobile.view.dialog.ResetPasswordDialogFragment;
 import org.edx.mobile.view.login.LoginPresenter;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.nhn.android.naverlogin.OAuthLogin.mOAuthLoginHandler;
 
 public class LoginActivity
         extends PresenterActivity<LoginPresenter, LoginPresenter.LoginViewInterface>
@@ -73,6 +92,9 @@ public class LoginActivity
         activityLoginBinding.socialAuth.googleButton.getRoot().setOnClickListener(
                 socialLoginDelegate.createSocialButtonClickHandler(
                         SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_GOOGLE));
+        activityLoginBinding.socialAuth.naverButton.getRoot().setOnClickListener(
+                socialLoginDelegate.createSocialButtonClickHandler(
+                        SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_NAVER));
 
         activityLoginBinding.loginButtonLayout.setOnClickListener(new OnClickListener() {
             @Override
@@ -139,17 +161,22 @@ public class LoginActivity
             }
 
             @Override
-            public void setSocialLoginButtons(boolean googleEnabled, boolean facebookEnabled) {
-                if (!facebookEnabled && !googleEnabled) {
+            public void setSocialLoginButtons(boolean googleEnabled, boolean facebookEnabled, boolean naverEnabled) {
+                if (!facebookEnabled && !googleEnabled && !naverEnabled) {
                     activityLoginBinding.panelLoginSocial.setVisibility(View.GONE);
                 } else if (!facebookEnabled) {
                     activityLoginBinding.socialAuth.facebookButton.getRoot().setVisibility(View.GONE);
                 } else if (!googleEnabled) {
                     activityLoginBinding.socialAuth.googleButton.getRoot().setVisibility(View.GONE);
+                } else if (!naverEnabled) {
+                    activityLoginBinding.socialAuth.naverButton.getRoot().setVisibility(View.GONE);
                 }
             }
         };
+
+
     }
+
 
     @Override
     protected void onDestroy() {
