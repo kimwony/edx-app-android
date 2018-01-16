@@ -2,7 +2,7 @@
 <resources>
 
     <declare-styleable name="custom_view">
-        <attr name="font" format="string" />
+        <attr name="font1" format="string" />
     </declare-styleable>
     
     <declare-styleable name="TitleRowView">
