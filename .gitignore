@@ -63,3 +63,6 @@ gradle.properties
 
 # reports directory
 /artifacts
+
+# kakao key
+/OpenEdXMobile/res/values/kakao_strings.xml
