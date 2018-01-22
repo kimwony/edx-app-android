@@ -54,6 +54,17 @@
                 android:layout_height="40dp"
                 android:layout_weight="0.5" />
 
+            <View
+                android:layout_width="6dp"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/kakao_button"
+                layout="@layout/panel_kakao_button"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="0.5" />
+
         </LinearLayout>
 
     </LinearLayout>

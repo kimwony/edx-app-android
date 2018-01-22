@@ -34,6 +34,14 @@
   <string name="error_account_not_linked_title_google">구글 계정이 {platform_name} 계정과 연동되어 있지 않습니다</string>
   <!--Content of alert shown during login when user attempts login via Google without having linked their account-->
   <string name="error_account_not_linked_desc_google">구글 계정이 {platform_destination} 에서 {platform_name} 계정과 연동되어 있는지 확인하세요</string>
+  <!--Title of alert shown during login when user attempts login via Naver without having linked their account-->
+  <string name="error_account_not_linked_title_naver">네이버 계정이 {platform_name}  계정과 연동되어 있지 않습니다</string>
+  <!--Content of alert shown during login when user attempts login via Naver without having linked their account-->
+  <string name="error_account_not_linked_desc_naver">네이버 계정이 {platform_destination} 에서 {platform_name} 계정과 연동되어 있는지 확인하세요</string>
+  <!--Title of alert shown during login when user attempts login via Kakao without having linked their account-->
+  <string name="error_account_not_linked_title_kakao">카카오 계정이 {platform_name} 계정과 연동되어 있지 않습니다</string>
+  <!--Content of alert shown during login when user attempts login via Kakao without having linked their account-->
+  <string name="error_account_not_linked_desc_kakao">카카오 계정이 {platform_destination} 에서 {platform_name} 계정과 연동되어 있는지 확인하세요</string>
   <!--Download error messages-->
   <!--Label shown on video list item whose download failed-->
   <string name="error_download_failed">다운로드 실패</string>

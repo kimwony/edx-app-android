@@ -51,6 +51,7 @@ public class Config {
     private static final String FACEBOOK = "FACEBOOK";
     private static final String GOOGLE = "GOOGLE";
     private static final String NAVER = "NAVER";
+    private static final String KAKAO = "KAKAO";
     private static final String TWITTER = "TWITTER";
     private static final String FABRIC = "FABRIC";
     private static final String NEW_RELIC = "NEW_RELIC";
@@ -249,6 +250,22 @@ public class Config {
         }
         public String getClientSecret() {
             return mClientSecret;
+        }
+    }
+
+    public static class KakaoConfig {
+        @SerializedName("ENABLED")
+        private boolean mEnabled;
+
+        public KakaoConfig(boolean mEnabled) {
+            this.mEnabled = mEnabled;
+        }
+
+        public KakaoConfig() {
+        }
+
+        public boolean isEnabled() {
+            return mEnabled;
         }
     }
 
@@ -650,6 +667,11 @@ public class Config {
     @NonNull
     public NaverConfig getNaverConfig() {
         return getObjectOrNewInstance(NAVER, NaverConfig.class);
+    }
+
+    @NonNull
+    public KakaoConfig getKakaoConfig() {
+        return getObjectOrNewInstance(KAKAO, KakaoConfig.class);
     }
 
     @NonNull

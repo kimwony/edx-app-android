@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 
 import org.edx.mobile.social.facebook.FacebookAuth;
 import org.edx.mobile.social.google.GoogleOauth2;
+import org.edx.mobile.social.kakao.KakaoAuth;
 import org.edx.mobile.social.naver.NaverAuth;
 import org.edx.mobile.util.Config;
 import org.edx.mobile.util.NetworkUtil;
@@ -17,7 +18,7 @@ public class SocialFactory {
 
     //TODO - we should create a central place for application wide constants.
     public static enum SOCIAL_SOURCE_TYPE {
-        TYPE_UNKNOWN(-1, "unknown"), TYPE_GOOGLE(100, "google-oauth2"), TYPE_FACEBOOK(101,"facebook"), TYPE_NAVER(102,"naver");
+        TYPE_UNKNOWN(-1, "unknown"), TYPE_GOOGLE(100, "google-oauth2"), TYPE_FACEBOOK(101,"facebook"), TYPE_NAVER(102,"naver"), TYPE_KAKAO(103,"kakao");
 
         private int code;
         private String value;
@@ -34,6 +35,8 @@ public class SocialFactory {
                 return TYPE_GOOGLE;
             if ( "naver".equalsIgnoreCase( source ) )
                 return TYPE_NAVER;
+            if ( "kakao".equalsIgnoreCase( source ) )
+                return TYPE_KAKAO;
             return TYPE_UNKNOWN;
         }
     }
@@ -61,6 +64,13 @@ public class SocialFactory {
             else {
                 return new ISocialEmptyImpl();
             }
+        } else if (type == SOCIAL_SOURCE_TYPE.TYPE_KAKAO) {
+            if ( isSocialFeatureEnabled(activity.getApplicationContext(),type, config)) {
+                return new KakaoAuth(activity);
+            }
+            else {
+                return new ISocialEmptyImpl();
+            }
         }
         return null;
     }
@@ -75,6 +85,8 @@ public class SocialFactory {
             return config.getFacebookConfig().isEnabled();
         } else if (type == SOCIAL_SOURCE_TYPE.TYPE_NAVER) {
             return config.getNaverConfig().isEnabled();
+        } else if (type == SOCIAL_SOURCE_TYPE.TYPE_KAKAO) {
+            return config.getKakaoConfig().isEnabled();
         }
         return true;
     }

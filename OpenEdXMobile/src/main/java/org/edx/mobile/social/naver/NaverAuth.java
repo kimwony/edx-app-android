@@ -28,15 +28,12 @@ import java.util.Map;
 
 public class NaverAuth extends ISocialImpl {
 
-    private IUiLifecycleHelper uiHelper;
     private static OAuthLogin mOAuthLoginInstance;
     private String accessToken;
-    public static Map<String,String> mUserInfoMap;
 
     /**
      * client 정보를 넣어준다.
      */
-
     private static String OAUTH_CLIENT_ID;
     private static String OAUTH_CLIENT_SECRET;
     private static String OAUTH_CLIENT_NAME = "네이버 로그인";
@@ -90,20 +87,19 @@ public class NaverAuth extends ISocialImpl {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         super.onActivityCreated(activity, savedInstanceState);
-        //uiHelper = IUiLifecycleHelper.Factory.getInstance(activity, statusCallback);
-        //uiHelper.onCreate(savedInstanceState);
+
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
         super.onActivityDestroyed(activity);
-        //uiHelper.onDestroy();
+
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
         super.onActivityPaused(activity);
-        //uiHelper.onPause();
+
     }
 
     @Override
@@ -117,14 +113,13 @@ public class NaverAuth extends ISocialImpl {
             onSessionStateChange(session, session.getState(), null);
         }
 
-        //uiHelper.onResume();
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
 
         super.onActivitySaveInstanceState(activity, outState);
-        //uiHelper.onSaveInstanceState(outState);
+
     }
 
     private void onSessionStateChange(Session session, SessionState state,
@@ -158,6 +153,10 @@ public class NaverAuth extends ISocialImpl {
             session.closeAndClearTokenInformation();
             //clear your preferences if saved
         }
+
+        if(mOAuthLoginInstance != null){
+            mOAuthLoginInstance.logout(activity.getBaseContext());
+        }
         
         logger.debug("naver logged out");
     }
@@ -180,8 +179,9 @@ public class NaverAuth extends ISocialImpl {
             } else {
                 String errorCode = mOAuthLoginInstance.getLastErrorCode(activity).getCode();
                 String errorDesc = mOAuthLoginInstance.getLastErrorDesc(activity);
-                Toast.makeText(activity, "errorCode:" + errorCode + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(activity, "errorCode:" + errorCode + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
                 System.out.println("errorCode :: '" + errorCode + "', errorDesc:'" + errorDesc + "'");
+                callback.onLogin(null);
             }
         }
 
@@ -213,80 +213,4 @@ public class NaverAuth extends ISocialImpl {
         }
     }
 
-    private static Map<String,String> requestNaverUserInfo(String data) { // xml 파싱
-        String f_array[] = new String[9];
-
-        try {
-            XmlPullParserFactory parserCreator = XmlPullParserFactory
-                    .newInstance();
-            XmlPullParser parser = parserCreator.newPullParser();
-            InputStream input = new ByteArrayInputStream(
-                    data.getBytes("UTF-8"));
-            parser.setInput(input, "UTF-8");
-
-            int parserEvent = parser.getEventType();
-            String tag;
-            boolean inText = false;
-            boolean lastMatTag = false;
-
-            int colIdx = 0;
-
-            while (parserEvent != XmlPullParser.END_DOCUMENT) {
-                switch (parserEvent) {
-                    case XmlPullParser.START_TAG:
-                        tag = parser.getName();
-                        if (tag.compareTo("xml") == 0) {
-                            inText = false;
-                        } else if (tag.compareTo("data") == 0) {
-                            inText = false;
-                        } else if (tag.compareTo("result") == 0) {
-                            inText = false;
-                        } else if (tag.compareTo("resultcode") == 0) {
-                            inText = false;
-                        } else if (tag.compareTo("message") == 0) {
-                            inText = false;
-                        } else if (tag.compareTo("response") == 0) {
-                            inText = false;
-                        } else {
-                            inText = true;
-
-                        }
-                        break;
-                    case XmlPullParser.TEXT:
-                        tag = parser.getName();
-                        if (inText) {
-                            if (parser.getText() == null) {
-                                f_array[colIdx] = "";
-                            } else {
-                                f_array[colIdx] = parser.getText().trim();
-                            }
-
-                            colIdx++;
-                        }
-                        inText = false;
-                        break;
-                    case XmlPullParser.END_TAG:
-                        tag = parser.getName();
-                        inText = false;
-                        break;
-
-                }
-
-                parserEvent = parser.next();
-            }
-        } catch (Exception e) {
-            Log.e("dd", "Error in network call", e);
-        }
-        Map<String,String> resultMap = new HashMap<>();
-        resultMap.put("email"           ,f_array[0]);
-        resultMap.put("nickname"        ,f_array[1]);
-        resultMap.put("enc_id"          ,f_array[2]);
-        resultMap.put("profile_image"   ,f_array[3]);
-        resultMap.put("age"             ,f_array[4]);
-        resultMap.put("gender"          ,f_array[5]);
-        resultMap.put("id"              ,f_array[6]);
-        resultMap.put("name"            ,f_array[7]);
-        resultMap.put("birthday"        ,f_array[8]);
-        return resultMap;
-    }
 }

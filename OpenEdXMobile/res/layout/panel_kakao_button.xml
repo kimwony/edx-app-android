@@ -4,7 +4,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/naver_text"
+        android:contentDescription="@string/kakao_text"
         android:focusable="true"
         android:foreground="@drawable/light_selectable_rounded_box_overlay"
         android:gravity="center_vertical">
@@ -12,7 +12,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#1EC800"
+            android:background="#3A2020"
             android:contentDescription="@null" />
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imgview_naver"
+                android:id="@+id/imgview_kakao"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_marginEnd="9dp"
@@ -30,7 +30,7 @@
                 android:layout_marginRight="9dp"
                 android:layout_marginStart="10dp"
                 android:contentDescription="@null"
-                android:src="@drawable/icon_naver_green" />
+                android:src="@drawable/icon_kakao_brown" />
 
             <View
                 android:layout_width="1dp"
@@ -38,12 +38,12 @@
                 android:background="@color/transparent_white_20" />
 
             <TextView
-                android:id="@+id/naver_tv"
+                android:id="@+id/kakao_tv"
                 style="@style/regular_white_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/naver_text"
+                android:text="@string/kakao_text"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>

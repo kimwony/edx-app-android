@@ -451,6 +451,8 @@
     <string name="google_text">Google</string>
     <!-- Naver login method -->
     <string name="naver_text">Naver</string>
+    <!-- Kakao login method -->
+    <string name="kakao_text">Kakao</string>
     <!-- Prompt allowing user to choose email program -->
     <string name="email_chooser_header">Send email using...</string>
     <!-- Error shown when user attempts to send email, but has no email app -->
@@ -493,6 +495,8 @@
     <!-- Text for successful registration with social token  -->
     <string name="sign_up_with_facebook_ok">You’ve successfully signed in with Facebook.</string>
     <string name="sign_up_with_google_ok">You’ve successfully signed in with Google.</string>
+    <string name="sign_up_with_naver_ok">You’ve successfully signed in with Naver.</string>
+    <string name="sign_up_with_kakao_ok">You’ve successfully signed in with Kakao.</string>
     <string name="sign_up_with_social_ok">We just need a little more information before you start learning with {platform_name}.</string>
     <!-- Continue registration after social login -->
     <string name="complete_registration">Complete your registration</string>

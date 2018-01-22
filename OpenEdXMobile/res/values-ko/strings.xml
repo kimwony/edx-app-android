@@ -9,10 +9,10 @@
   <string name="course_details_view_cert_button">이수증 보기</string>
   <!--Course Discovery-->
   <!--Enroll Now button text-->
-  <string name="enroll_now_button_text">바로 수강신청하기</string>
+  <string name="enroll_now_button_text">수강신청하기</string>
   <!--Invitation Only button text-->
   <!--Effort field name-->
-  <string name="effort_field_name">학습 권장 시간:</string>
+  <string name="effort_field_name">주간 학습 권장 시간:</string>
   <!--When discovering courses, some courses have an externally hosted video that describes it.
     In that case, a play icon is shown on top of the course image. This is the content description.-->
   <string name="go_to_video">동영상 보기</string>
@@ -44,7 +44,7 @@
   <string name="need_data">이 기능을 사용하기 위해선 인터넷 연결이 필요합니다.</string>
   <!--Login Activity Place Holders-->
   <!--Hint text for login field-->
-  <string name="email_username">이메일 주소 혹은 아이디</string>
+  <string name="email_username">이메일 주소</string>
   <!--Hint text for email address field in reset password dialog-->
   <string name="email">E-mail 주소</string>
   <!--Hint text for password field-->
@@ -65,8 +65,9 @@
   <string name="error_heading">로그인 중에 다음 오류가 발생하였습니다</string>
   <!--Error during log in.-->
   <string name="login_failed">이메일 주소/아이디와 비밀번호가 정확한지 확인해주세요. </string>
-  <string name="by_signing_up">이 앱에 로그인 함으로서 다음 약관에 동의하게 됩니다</string>
+  <string name="by_signing_up">이 앱에 로그인 함으로써 다음 약관에 동의하게 됩니다</string>
   <string name="licensing_agreement">{platform_name} 서비스 이용약관</string>
+  <string name="personal_policy">개인정보처리방침</string>
   <string name="login_title">로그인</string>
   <!--Accessible content description of close button on Sign in and Sign up screen-->
   <string name="close">닫기</string>
@@ -89,6 +90,7 @@
   <!--Title of native Find Courses Screen-->
   <string name="label_find_courses">강좌 목록</string>
   <!--Title of webview based Find Courses Screen-->
+  <string name="label_discover">강좌목록</string>
   <!--Button allowing users to send an email for feedback-->
   <string name="label_submit_feedback">문의하기</string>
   <!--Toggle switch on state label-->
@@ -100,9 +102,11 @@
   <!--Settings screen title-->
   <string name="settings_txt">설정</string>
   <!--Settings screen version-->
-  <string name="label_version">앱 버전</string>
+  <string name="label_version">Ver</string>
   <!--Button text to show user Settings screen-->
+  <string name="label_settings">설정</string>
   <!--Title of Account screen-->
+  <string name="title_account">내 계정</string>
   <!--Help Dialog Place Holder messages-->
   <!--Reset password alert dialog title-->
   <string name="confirm_dialog_title_help">비밀번호 초기화</string>
@@ -131,11 +135,14 @@
   <string name="end_user_title">K-MOOC 이용약관</string>
   <!--My Courses-->
   <!--Row of course on dashboard screen-->
+  <string name="courseware_title">강좌</string>
   <!--Row of course on dashboard screen-->
   <!--NOTE: TODO - not final one-->
   <string name="courseware_subtitle">동영상 및 과제 등을 학습합니다</string>
   <!--Row title of videos on dashboard screen-->
+  <string name="videos_title">동영상</string>
   <!--Row subtitle of videos on dashboard screen-->
+  <string name="videos_subtitle">Watch course videos</string>
   <!--Row of Discussion on dashboard screen-->
   <string name="discussion_title">게시판</string>
   <!--Row of Discussion on dashboard screen-->
@@ -150,6 +157,7 @@
   <string name="announcement_title">공지사항</string>
   <!--Title text for the important dates section on the course dashboard-->
   <!--Title text for the additional resources section on the tabular course dashboard-->
+  <string name="resources_title">기타</string>
   <!--Row of announcement on dashboard screen-->
   <!--NOTE: TODO - not final one-->
   <string name="announcement_subtitle">강좌의 최근 소식이 게시됩니다</string>
@@ -159,11 +167,11 @@
   <!--Label indicating new course content has been downloaded-->
   <string name="new_course_content">새 강좌 콘텐츠</string>
   <!--Label for date when course starts-->
-  <string name="label_starting">시작일 - {date}</string>
+  <string name="label_starting">개강예정({date})</string>
   <!--Label for course that has ended-->
-  <string name="label_ended">종료됨 - {date}</string>
+  <string name="label_ended">종료({date})</string>
   <!--Label for date when course is ending-->
-  <string name="label_ending">{date} - 종료</string>
+  <string name="label_ending">진행중({date} 종료)</string>
   <!--Course Details-->
   <!--Accessible content description of label for course content-->
   <string name="course_content">강좌 콘텐츠</string>
@@ -206,11 +214,11 @@
   <string name="discussion_posts_filter_unanswered_posts">답변 미완료</string>
   <!--Discussion posts sort options-->
   <!--Discussion posts sort by recent activity-->
-  <string name="discussion_posts_sort_recent_activity">최근 활동</string>
+  <string name="discussion_posts_sort_recent_activity">최신 순</string>
   <!--Discussion posts sort by most activity-->
-  <string name="discussion_posts_sort_most_activity">가장 많은 활동</string>
+  <string name="discussion_posts_sort_most_activity">댓글 순</string>
   <!--Discussion posts sort by most votes-->
-  <string name="discussion_posts_sort_most_votes">가장 많은 표</string>
+  <string name="discussion_posts_sort_most_votes">추천 순</string>
   <!--Label for the visibility of a discussion post that is only visible to cohort-->
   <string name="discussion_post_visibility_cohort">이 글은 {cohort} 만 열람할 수 있습니다.</string>
   <!--Label for the visibility of a discussion post that is visible to everyone-->
@@ -223,9 +231,9 @@
   <!--Used for putting authorLabel into parenthesis e.g. (Community TA) or (Staff)-->
   <string name="discussion_post_author_label_attribution">({text})</string>
   <!--Label indicating the number of replies on a post e.g. 47 total-->
-  <string name="discussion_post_total_replies">{total_replies} 계</string>
+  <string name="discussion_post_total_replies">글 {total_replies} 개</string>
   <!--Label indicating the last time a post was updated e.g. Last post: Jun 22, 2016-->
-  <string name="discussion_post_last_interaction_date">최신 글: {date}</string>
+  <string name="discussion_post_last_interaction_date">최근 작성한 글: {date}</string>
   <!--Discussion Responses-->
   <!--Label for question type discussions that are answered-->
   <string name="course_discussion_answered_title">답이 작성된 질문</string>
@@ -234,7 +242,7 @@
   <!--Label for adding a discussion response-->
   <!--Label for number of discussion responses-->
   <plurals name="number_responses_or_comments_responses_label">
-    <item quantity="other">%s 개 응답</item>
+    <item quantity="other">댓글 %s 개</item>
   </plurals>
   <!--Label for number of discussion comments-->
   <plurals name="number_responses_or_comments_comments_label">
@@ -253,7 +261,7 @@
   <!--Discussion Responses Action Bar-->
   <!--Label to indicate number of votes-->
   <plurals name="discussion_responses_action_bar_vote_text">
-    <item quantity="other">{quantity} 표</item>
+    <item quantity="other">추천 {quantity} 개</item>
   </plurals>
   <!--Label to indicate discussion response is not marked as inappropriate-->
   <string name="discussion_responses_report_label">보고</string>
@@ -288,7 +296,7 @@
   <!--Add post button description for accessibility in adding a new discussion-->
   <string name="discussion_add_post_button_description">게시판 글 추가 버튼</string>
   <!--Add post button title in adding a new post-->
-  <string name="discussion_add_question_button_label">질문 글</string>
+  <string name="discussion_add_question_button_label">질문 추가하기</string>
   <!--Add post button content description for accessibility in adding a new post-->
   <string name="discussion_add_question_button_description">질문 글 버튼</string>
   <!--Add your post placeholder in adding a new post-->
@@ -320,6 +328,7 @@
   <!--Title of video download screen-->
   <string name="title_download">다운로드 목록</string>
   <!--Label indicating user has no Internet connection-->
+  <string name="offline_text">오프라인</string>
   <!--Cancel video download-->
   <string name="cancel_download">다운로드 취소</string>
   <!--My Downloads-->
@@ -378,6 +387,7 @@
   <!--Button label to bring up course finder-->
   <string name="find_course_text">새로운 강좌를 학습하고 싶으십니까?</string>
   <!--Button label to bring up course finder-->
+  <string name="find_course_btn_text">강좌 검색</string>
   <!--Message between sign in button and social login buttons-->
   <string name="or_sign_in_with">또는 다음을 통해 로그인하세요</string>
   <!--Facebook login method-->
@@ -386,6 +396,8 @@
   <string name="google_text">구글</string>
   <!--Naver login method-->
   <string name="naver_text">네이버</string>
+  <!--Kakao login method-->
+  <string name="kakao_text">카카오</string>
   <!--Prompt allowing user to choose email program-->
   <string name="email_chooser_header">...을 통해 이메일을 발송하세요</string>
   <!--Error shown when user attempts to send email, but has no email app-->
@@ -398,7 +410,7 @@
   <string name="sign_up_and_learn">회원가입</string>
   <!--In Register screen-->
   <string name="register_with">다음을 통해 등록하세요</string>
-  <string name="or_register_with_email">혹인 이메일을 통해 등록하세요</string>
+  <string name="or_register_with_email">혹은 이메일을 통해 등록하세요</string>
   <!--New Logistration Launch screen text-->
   <!--Button leading user to create account screen-->
   <string name="launch_register">등록</string>
@@ -424,6 +436,8 @@
   <!--Text for successful registration with social token-->
   <string name="sign_up_with_facebook_ok">페이스북을 통해 로그인 하였습니다.</string>
   <string name="sign_up_with_google_ok">구글을 통해 로그인 하였습니다.</string>
+  <string name="sign_up_with_naver_ok">네이버를 통해 로그인 하였습니다.</string>
+  <string name="sign_up_with_kakao_ok">카카오를 통해 로그인 하였습니다.</string>
   <string name="sign_up_with_social_ok">{platform_name} 을 시작하기 전에 약간의 추가 정보가 필요합니다.</string>
   <!--Continue registration after social login-->
   <string name="complete_registration">등록 완료하기</string>
@@ -441,7 +455,7 @@
   <string name="open_external_url_desc">이 링크에 접속하면 모바일 브라우저가 열리며 추가 데이터 요금이 청구될 수 있습니다.</string>
   <string name="android">안드로이드</string>
   <!--Email subject line when user attempts to submit feedback about the app-->
-  <string name="email_subject">사용자 피드백</string>
+  <string name="email_subject">[모바일 앱 문의]</string>
   <!--Email subject line when a user attempts to submit a review using the app review workflow-->
   <!--Submit Feedback app version text-->
   <string name="app_version">ver:</string>

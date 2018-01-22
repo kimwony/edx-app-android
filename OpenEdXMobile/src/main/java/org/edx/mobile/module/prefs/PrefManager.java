@@ -285,6 +285,7 @@ public class PrefManager {
         public static final String BACKEND_FACEBOOK = "facebook";
         public static final String BACKEND_GOOGLE = "google-oauth2";
         public static final String BACKEND_NAVER = "naver";
+        public static final String BACKEND_KAKAO = "kakao";
     }
 
     /**

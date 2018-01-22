@@ -95,6 +95,9 @@ public class LoginActivity
         activityLoginBinding.socialAuth.naverButton.getRoot().setOnClickListener(
                 socialLoginDelegate.createSocialButtonClickHandler(
                         SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_NAVER));
+        activityLoginBinding.socialAuth.kakaoButton.getRoot().setOnClickListener(
+                socialLoginDelegate.createSocialButtonClickHandler(
+                        SocialFactory.SOCIAL_SOURCE_TYPE.TYPE_KAKAO));
 
         activityLoginBinding.loginButtonLayout.setOnClickListener(new OnClickListener() {
             @Override
@@ -161,8 +164,8 @@ public class LoginActivity
             }
 
             @Override
-            public void setSocialLoginButtons(boolean googleEnabled, boolean facebookEnabled, boolean naverEnabled) {
-                if (!facebookEnabled && !googleEnabled && !naverEnabled) {
+            public void setSocialLoginButtons(boolean googleEnabled, boolean facebookEnabled, boolean naverEnabled, boolean kakaoEnabled) {
+                if (!facebookEnabled && !googleEnabled && !naverEnabled && !kakaoEnabled) {
                     activityLoginBinding.panelLoginSocial.setVisibility(View.GONE);
                 } else if (!facebookEnabled) {
                     activityLoginBinding.socialAuth.facebookButton.getRoot().setVisibility(View.GONE);
@@ -170,6 +173,8 @@ public class LoginActivity
                     activityLoginBinding.socialAuth.googleButton.getRoot().setVisibility(View.GONE);
                 } else if (!naverEnabled) {
                     activityLoginBinding.socialAuth.naverButton.getRoot().setVisibility(View.GONE);
+                } else if (!kakaoEnabled) {
+                    activityLoginBinding.socialAuth.kakaoButton.getRoot().setVisibility(View.GONE);
                 }
             }
         };
@@ -372,6 +377,8 @@ public class LoginActivity
 
         activityLoginBinding.socialAuth.facebookButton.getRoot().setClickable(enable);
         activityLoginBinding.socialAuth.googleButton.getRoot().setClickable(enable);
+        activityLoginBinding.socialAuth.naverButton.getRoot().setClickable(enable);
+        activityLoginBinding.socialAuth.kakaoButton.getRoot().setClickable(enable);
 
         activityLoginBinding.emailEt.setEnabled(enable);
         activityLoginBinding.passwordEt.setEnabled(enable);
