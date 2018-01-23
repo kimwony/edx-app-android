@@ -26,7 +26,8 @@ public class CourseInfoActivity extends BaseWebViewFindCoursesActivity {
         final String pathId = getIntent().getStringExtra(EXTRA_PATH_ID);
         final String url = environment.getConfig().getCourseDiscoveryConfig()
                 .getCourseInfoUrlTemplate()
-                .replace("{" + EXTRA_PATH_ID + "}", pathId);
+                .replace("{" + EXTRA_PATH_ID + "}", pathId.replaceAll("\\p{Space}" , "+"));
+
         loadUrl(url);
     }
 

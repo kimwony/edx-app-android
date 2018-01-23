@@ -355,28 +355,28 @@ public class Storage implements IStorage {
                     DownloadEntry e = (DownloadEntry) db.getDownloadEntryByDmId(dmId, null);
                     e.downloaded = DownloadEntry.DownloadedState.DOWNLOADED;
 
-//                    File tt = pref.getDownloadDirectory();
+////                    File tt = pref.getDownloadDirectory();
+//
+//                    String[] tmpArr = nm.filepath.split("/");
+//
+//                    String user_name = tmpArr[tmpArr.length - 2];
+//                    String file_name = tmpArr[tmpArr.length - 1];
+//
+//                    String from_path = nm.filepath.split(file_name)[0];
+//
+//
+//                    File to_path = context.getFilesDir();
+//                    String to = to_path.toString();
+//
+//
+//                    String to2 = to.split("/files")[0] + "/videos/" + user_name + "/";
+//
+//                    moveFile(from_path ,file_name , to2  );
+//
+////                    e.filepath = nm.filepath;
+//                    e.filepath = to2 + file_name;
 
-                    String[] tmpArr = nm.filepath.split("/");
-
-                    String user_name = tmpArr[tmpArr.length - 2];
-                    String file_name = tmpArr[tmpArr.length - 1];
-
-                    String from_path = nm.filepath.split(file_name)[0];
-
-
-                    File to_path = context.getFilesDir();
-                    String to = to_path.toString();
-
-
-                    String to2 = to.split("/files")[0] + "/videos/" + user_name + "/";
-
-                    moveFile(from_path ,file_name , to2  );
-
-//                    e.filepath = nm.filepath;
-                    e.filepath = to2 + file_name;
-
-
+                    e.filepath = nm.filepath;
 
                     if(e.size<=0){
                         e.size = nm.size;
@@ -384,21 +384,34 @@ public class Storage implements IStorage {
                     e.downloadedOn = System.currentTimeMillis();
                     // update file duration
                     if(e.duration==0){
-                        FileInputStream in = null;
+//                        FileInputStream in = null;
+//                        try {
+//                            MediaMetadataRetriever r = new MediaMetadataRetriever();
+//                            in = new FileInputStream(new File(e.filepath));
+//                            r.setDataSource(in.getFD());
+//                            int duration = Integer
+//                                    .parseInt(r
+//                                            .extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+//                            e.duration = duration/1000;
+//                            logger.debug("Duration updated to : " + duration);
+//
+//                        } catch (Exception ex) {
+//                            logger.error(ex);
+//                        } finally {
+//                            in.close();
+//                        }
                         try {
                             MediaMetadataRetriever r = new MediaMetadataRetriever();
-                            in = new FileInputStream(new File(e.filepath));
+                            FileInputStream in = new FileInputStream(new File(e.filepath));
                             r.setDataSource(in.getFD());
                             int duration = Integer
                                     .parseInt(r
                                             .extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
                             e.duration = duration/1000;
                             logger.debug("Duration updated to : " + duration);
-
+                            in.close();
                         } catch (Exception ex) {
                             logger.error(ex);
-                        } finally {
-                            in.close();
                         }
                     }
                     db.updateDownloadCompleteInfoByDmId(dmId, e, null);

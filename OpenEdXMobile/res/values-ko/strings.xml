@@ -182,6 +182,7 @@
   <!--Label shown when no courseware content is available-->
   <string name="no_chapter_text">현재 해당 강좌를 이용할 수 없습니다.</string>
   <!--Label shown when no mobile-friendly videos are available in a course-->
+  <string name="no_videos_text">해당 강좌에는 동영상이 포함되어 있지 않습니다.</string>
   <!--Label shown when user is enrolled in no courses-->
   <string name="no_courses_to_display">아직 강좌에 등록하지 않았습니다.</string>
   <!--Label shown when no announcements are available for a course-->

@@ -61,51 +61,82 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
+//        try {
+//
+//            Context context = this;
+//
+//            File FlagFile = new File(context.getExternalFilesDir(null).getParentFile().getParentFile() + "/com.nile.kmooc.db/flag");
+////            File FlagFile = new File("/sdcard/flag");
+//            if (FlagFile.exists() == false) {
+//                String mRootPath = context.getExternalFilesDir(null).getParentFile().getAbsolutePath() + "/videos";
+//                File tmpDir = new File(mRootPath);
+//                if(tmpDir.isDirectory()) {
+//                    removeDir(mRootPath);
+//                }
+//
+//                File to_path = context.getFilesDir().getParentFile();
+//                if(to_path.isDirectory()) {
+//                    removeDir(to_path.getAbsolutePath());
+//                }
+//
+//                File dir = new File (context.getExternalFilesDir(null).getParentFile().getParentFile() + "/com.nile.kmooc.db");
+//                if (!dir.exists())
+//                {
+//                    dir.mkdirs();
+//                }
+//
+//                FileOutputStream fos = new FileOutputStream(FlagFile);
+//
+//                new AlertDialog.Builder(this)
+//                        .setTitle(R.string.label_notification)
+//                        .setMessage(R.string.file_delete)
+//                        .setCancelable(false)
+//                        .setNeutralButton(R.string.label_ok, new DialogInterface.OnClickListener()
+//                        {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which)
+//                            {
+//                                restarting();
+//                            }
+//
+//                        })
+//                        .show();
+//
+//            } else {
+//                if (!Config.FabricBranchConfig.isBranchEnabled(config.getFabricConfig())) {
+//                    finish();
+//                }
+//
+//                /*
+//                Recommended solution to avoid opening of multiple tasks of our app's launcher activity.
+//                For more info:
+//                - https://issuetracker.google.com/issues/36907463
+//                - https://stackoverflow.com/questions/4341600/how-to-prevent-multiple-instances-of-an-activity-when-it-is-launched-with-differ/
+//                - https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508#16447508
+//                 */
+//                if (!isTaskRoot()) {
+//                    final Intent intent = getIntent();
+//                    if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
+//                        return;
+//                    }
+//                }
+//
+//                final IEdxEnvironment environment = MainApplication.getEnvironment(this);
+//                if (environment.getUserPrefs().getProfile() != null) {
+//                    environment.getRouter().showMyCourses(SplashActivity.this);
+//                } else if (!environment.getConfig().isRegistrationEnabled()) {
+//                    startActivity(environment.getRouter().getLogInIntent());
+//                } else {
+//                    environment.getRouter().showLaunchScreen(SplashActivity.this);
+//                }
+//            }
+//        } catch(Exception e){
+//            Log.d("version", "not first");
+//        }
 
-            Context context = this;
-
-            File FlagFile = new File(context.getExternalFilesDir(null).getParentFile().getParentFile() + "/com.nile.kmooc.db/flag");
-//            File FlagFile = new File("/sdcard/flag");
-            if (FlagFile.exists() == false) {
-                String mRootPath = context.getExternalFilesDir(null).getParentFile().getAbsolutePath() + "/videos";
-                File tmpDir = new File(mRootPath);
-                if(tmpDir.isDirectory()) {
-                    removeDir(mRootPath);
-                }
-
-                File to_path = context.getFilesDir().getParentFile();
-                if(to_path.isDirectory()) {
-                    removeDir(to_path.getAbsolutePath());
-                }
-
-                File dir = new File (context.getExternalFilesDir(null).getParentFile().getParentFile() + "/com.nile.kmooc.db");
-                if (!dir.exists())
-                {
-                    dir.mkdirs();
-                }
-
-                FileOutputStream fos = new FileOutputStream(FlagFile);
-
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.label_notification)
-                        .setMessage(R.string.file_delete)
-                        .setCancelable(false)
-                        .setNeutralButton(R.string.label_ok, new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                restarting();
-                            }
-
-                        })
-                        .show();
-
-            } else {
-                if (!Config.FabricBranchConfig.isBranchEnabled(config.getFabricConfig())) {
-                    finish();
-                }
+        if (!Config.FabricBranchConfig.isBranchEnabled(config.getFabricConfig())) {
+            finish();
+        }
 
                 /*
                 Recommended solution to avoid opening of multiple tasks of our app's launcher activity.
@@ -114,25 +145,22 @@ public class SplashActivity extends Activity {
                 - https://stackoverflow.com/questions/4341600/how-to-prevent-multiple-instances-of-an-activity-when-it-is-launched-with-differ/
                 - https://stackoverflow.com/questions/16283079/re-launch-of-activity-on-home-button-but-only-the-first-time/16447508#16447508
                  */
-                if (!isTaskRoot()) {
-                    final Intent intent = getIntent();
-                    if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
-                        return;
-                    }
-                }
-
-                final IEdxEnvironment environment = MainApplication.getEnvironment(this);
-                if (environment.getUserPrefs().getProfile() != null) {
-                    environment.getRouter().showMyCourses(SplashActivity.this);
-                } else if (!environment.getConfig().isRegistrationEnabled()) {
-                    startActivity(environment.getRouter().getLogInIntent());
-                } else {
-                    environment.getRouter().showLaunchScreen(SplashActivity.this);
-                }
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
+                return;
             }
-        } catch(Exception e){
-            Log.d("version", "not first");
         }
+
+        final IEdxEnvironment environment = MainApplication.getEnvironment(this);
+        if (environment.getUserPrefs().getProfile() != null) {
+            environment.getRouter().showMyCourses(SplashActivity.this);
+        } else if (!environment.getConfig().isRegistrationEnabled()) {
+            startActivity(environment.getRouter().getLogInIntent());
+        } else {
+            environment.getRouter().showLaunchScreen(SplashActivity.this);
+        }
+
     }
 
     @Override
