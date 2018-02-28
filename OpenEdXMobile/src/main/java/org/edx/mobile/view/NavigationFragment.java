@@ -190,6 +190,13 @@ public class NavigationFragment extends BaseFragment {
             }
         });
 
+        drawerNavigationBinding.feedbackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                environment.getRouter().showFeedbackScreen(getActivity(), getString(R.string.email_subject));
+            }
+        });
+
         if (profile != null) {
             if (profile.name != null) {
                 drawerNavigationBinding.nameTv.setText(profile.name);

@@ -31,7 +31,8 @@
             <TextView
                 android:id="@+id/feedback_btn"
                 style="@style/account_option"
-                android:text="@string/label_submit_feedback" />
+                android:text="@string/label_submit_feedback"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/logout_btn"

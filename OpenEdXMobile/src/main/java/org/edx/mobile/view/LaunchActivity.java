@@ -37,9 +37,10 @@ public class LaunchActivity extends BaseFragmentActivity {
             public void onClick(View v) {
                 //environment.getAnalyticsRegistry().trackUserSignUpForAccount();
                 //startActivity(environment.getRouter().getRegisterIntent());
-                Uri uri = Uri.parse("https://www.kmooc.kr/register");
+                /*Uri uri = Uri.parse("https://www.kmooc.kr/register");
                 Intent browse = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(browse);
+                startActivity(browse);*/
+                showEulaDialog();
             }
         });
         environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.LAUNCH_ACTIVITY);
@@ -52,5 +53,10 @@ public class LaunchActivity extends BaseFragmentActivity {
             finish();
             environment.getRouter().showMyCourses(this);
         }
+    }
+
+    public void showEulaDialog() {
+        environment.getRouter().showWebViewActivity(this, getString(R.string.eula_file_link3),
+                getString(R.string.sign_up_and_learn));
     }
 }

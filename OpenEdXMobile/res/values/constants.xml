@@ -1,6 +1,7 @@
 <resources>
     <string name="eula_file_link" translatable="false">http://www.kmooc.kr/agreement</string>
     <string name="eula_file_link2">http://www.kmooc.kr/Privacy-Policy</string>
+    <string name="eula_file_link3">https://www.kmooc.kr/register</string>
 
     <!-- Speed Test.
     Once this feature is ready, migrate this to the YAML config -->

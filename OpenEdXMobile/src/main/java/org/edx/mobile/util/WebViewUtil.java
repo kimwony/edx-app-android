@@ -2,8 +2,10 @@ package org.edx.mobile.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import org.edx.mobile.http.HttpStatus;
@@ -120,6 +122,12 @@ public class WebViewUtil {
                                             viewInterface.hideLoadingProgress();
                                             viewInterface.clearWebView();
                                         } else {
+                                            webView.setWebChromeClient(new WebChromeClient(){
+                                                @Override
+                                                public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+                                                    return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+                                                }
+                                            });
                                             webView.loadUrl(url);
                                         }
                                     }
