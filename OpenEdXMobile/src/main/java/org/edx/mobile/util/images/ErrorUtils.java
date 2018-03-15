@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.util.Log;
 
 import com.joanzapata.iconify.Icon;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -61,12 +62,15 @@ public enum ErrorUtils {
                 errorResId = R.string.reset_no_network_message;
             }
         } else if (error instanceof HttpStatusException) {
+            //Log.e("12313131", String.valueOf(((HttpStatusException) error).getStatusCode()));
             switch (((HttpStatusException) error).getStatusCode()) {
                 case HttpStatus.SERVICE_UNAVAILABLE:
                 case HttpStatus.INTERNAL_SERVER_ERROR:
                     errorResId = R.string.network_service_unavailable;
                     break;
                 case HttpStatus.BAD_REQUEST:
+                    errorResId = R.string.login_failed;
+                    break;
                 case HttpStatus.NOT_FOUND:
                     if (callTrigger == CallTrigger.USER_ACTION) {
                         errorResId = R.string.action_not_completed;
@@ -77,9 +81,11 @@ public enum ErrorUtils {
                     break;
             }
         }
+
         if (errorResId == R.string.error_unknown) {
             // Submit crash report since this is an unknown type of error
             logger.error(error, true);
+            //logger.debug("errrrrrrrr"+ error);
         }
         return errorResId;
     }

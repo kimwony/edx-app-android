@@ -3,37 +3,40 @@ package org.edx.mobile.social.kakao;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
-import com.kakao.usermgmt.LoginButton;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
+
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
-import com.nhn.android.naverlogin.OAuthLogin;
-import com.nhn.android.naverlogin.OAuthLoginHandler;
 
-import org.edx.mobile.module.facebook.IUiLifecycleHelper;
+import org.edx.mobile.R;
 import org.edx.mobile.social.ISocialImpl;
 import org.edx.mobile.view.LoginActivity;
-import org.edx.mobile.view.SplashActivity;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class KakaoAuth extends ISocialImpl {
@@ -43,8 +46,11 @@ public class KakaoAuth extends ISocialImpl {
     private android.support.v4.app.Fragment supportFragment;
     private SessionCallback callback1;
 
+    Context mContext;
+
     public KakaoAuth(Activity activity) {
         super(activity);
+        mContext = this.activity;
     }
 
     @Override
@@ -91,14 +97,16 @@ public class KakaoAuth extends ISocialImpl {
     }
 
     private void onClickLoginButton(final List<AuthType> authTypes){
+
         if (authTypes.size() == 1) {
             openSession(authTypes.get(0));
 
         } else {
-//            final LoginButton.Item[] authItems = createAuthItemArray(authTypes);
-//            ListAdapter adapter = createLoginAdapter(authItems);
-//            final Dialog dialog = createLoginDialog(authItems, adapter);
-//            dialog.show();
+
+            final Item[] authItems = createAuthItemArray(authTypes);
+            ListAdapter adapter = createLoginAdapter(authItems);
+            final Dialog dialog = createLoginDialog(authItems, adapter);
+            dialog.show();
         }
     }
 
@@ -235,5 +243,130 @@ public class KakaoAuth extends ISocialImpl {
         //activity.getIntent().setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         callback.onLogin(null);
         //activity.startActivity(activity.getIntent());
+    }
+
+    /**
+     * 가능한 AuhType들이 담겨 있는 리스트를 인자로 받아 로그인 어댑터의 data source로 사용될 Item array를 반환한다.
+     * @param authTypes 가능한 AuthType들을 담고 있는 리스트
+     * @return 실제로 로그인 방법 리스트에 사용될 Item array
+     */
+    private Item[] createAuthItemArray(final List<AuthType> authTypes) {
+        final List<Item> itemList = new ArrayList<Item>();
+        if(authTypes.contains(AuthType.KAKAO_TALK)) {
+            itemList.add(new Item(com.kakao.usermgmt.R.string.com_kakao_kakaotalk_account, com.kakao.usermgmt.R.drawable.talk, com.kakao.usermgmt.R.string.com_kakao_kakaotalk_account_tts, AuthType.KAKAO_TALK));
+        }
+        if(authTypes.contains(AuthType.KAKAO_STORY)) {
+            itemList.add(new Item(com.kakao.usermgmt.R.string.com_kakao_kakaostory_account, com.kakao.usermgmt.R.drawable.story, com.kakao.usermgmt.R.string.com_kakao_kakaostory_account_tts, AuthType.KAKAO_STORY));
+        }
+        if(authTypes.contains(AuthType.KAKAO_ACCOUNT)){
+            itemList.add(new Item(com.kakao.usermgmt.R.string.com_kakao_other_kakaoaccount, com.kakao.usermgmt.R.drawable.account, com.kakao.usermgmt.R.string.com_kakao_other_kakaoaccount_tts, AuthType.KAKAO_ACCOUNT));
+        }
+
+        return itemList.toArray(new Item[itemList.size()]);
+    }
+
+    @SuppressWarnings("deprecation")
+    private ListAdapter createLoginAdapter(final Item[] authItems) {
+        /**
+         * 가능한 auth type들을 유저에게 보여주기 위한 준비.
+         */
+        return new ArrayAdapter<Item>(
+                mContext,
+                android.R.layout.select_dialog_item,
+                android.R.id.text1, authItems){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                if (convertView == null) {
+                    LayoutInflater inflater = (LayoutInflater) getContext()
+                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflater.inflate(com.kakao.usermgmt.R.layout.layout_login_item, parent, false);
+                }
+                ImageView imageView = (ImageView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_icon);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    imageView.setImageDrawable(activity.getResources().getDrawable(authItems[position].icon, getContext().getTheme()));
+                } else {
+                    imageView.setImageDrawable(activity.getResources().getDrawable(authItems[position].icon));
+                }
+                TextView textView = (TextView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_text);
+                textView.setText(authItems[position].textId);
+                return convertView;
+            }
+        };
+    }
+
+    /**
+     * 실제로 유저에게 보여질 dialog 객체를 생성한다.
+     * @param authItems 가능한 AuthType들의 정보를 담고 있는 Item array
+     * @param adapter Dialog의 list view에 쓰일 adapter
+     * @return 로그인 방법들을 팝업으로 보여줄 dialog
+     */
+    private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
+        final Dialog dialog = new Dialog(mContext, com.kakao.usermgmt.R.style.LoginDialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(com.kakao.usermgmt.R.layout.layout_login_dialog);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setGravity(Gravity.CENTER);
+        }
+
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+//        TextView textView = (TextView) dialog.findViewById(R.id.login_title_text);
+//        Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/KakaoOTFRegular.otf");
+//        if (customFont != null) {
+//            textView.setTypeface(customFont);
+//        }
+
+        ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final AuthType authType = authItems[position].authType;
+                if (authType != null) {
+                    openSession(authType);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        Button closeButton = (Button) dialog.findViewById(com.kakao.usermgmt.R.id.login_close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                final Intent launchIntent = new Intent(mContext, LoginActivity.class);
+                launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mContext.startActivity(launchIntent);
+            }
+        });
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+               @Override
+               public void onCancel(DialogInterface dialog) {
+                   dialog.dismiss();
+
+                   final Intent launchIntent = new Intent(mContext, LoginActivity.class);
+                   launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                   mContext.startActivity(launchIntent);
+               }
+        });
+        return dialog;
+    }
+
+    /**
+     * 각 로그인 방법들의 text, icon, 실제 AuthTYpe들을 담고 있는 container class.
+     */
+    private static class Item {
+        final int textId;
+        public final int icon;
+        final int contentDescId;
+        final AuthType authType;
+        Item(final int textId, final Integer icon, final int contentDescId, final AuthType authType) {
+            this.textId = textId;
+            this.icon = icon;
+            this.contentDescId = contentDescId;
+            this.authType = authType;
+        }
     }
 }
