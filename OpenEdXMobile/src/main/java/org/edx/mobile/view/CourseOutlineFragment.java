@@ -62,10 +62,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import retrofit2.Call;
 
-/**
- * TODO: Rename class name to 'CourseOutlineFragment' once old/deprecated  {@link CourseOutlineFragment} is deleted.
- */
-public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
+public class CourseOutlineFragment extends OfflineSupportBaseFragment
         implements LastAccessManager.LastAccessManagerCallback, RefreshListener,
         VideoDownloadHelper.DownloadManagerCallback,
         LoaderManager.LoaderCallbacks<AsyncTaskResult<CourseComponent>> {
@@ -235,8 +232,8 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
 
             @Override
             protected void onFinish() {
-                if (!EventBus.getDefault().isRegistered(NewCourseOutlineFragment.this)) {
-                    EventBus.getDefault().registerSticky(NewCourseOutlineFragment.this);
+                if (!EventBus.getDefault().isRegistered(CourseOutlineFragment.this)) {
+                    EventBus.getDefault().registerSticky(CourseOutlineFragment.this);
                 }
             }
         });
@@ -272,10 +269,10 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
                 listView.clearChoices();
                 final CourseComponent component = adapter.getItem(position).component;
                 if (component.isContainer()) {
-                    environment.getRouter().showCourseContainerOutline(NewCourseOutlineFragment.this,
+                    environment.getRouter().showCourseContainerOutline(CourseOutlineFragment.this,
                             REQUEST_SHOW_COURSE_UNIT_DETAIL, courseData, component.getId(), null, isVideoMode);
                 } else {
-                    environment.getRouter().showCourseUnitDetail(NewCourseOutlineFragment.this,
+                    environment.getRouter().showCourseUnitDetail(CourseOutlineFragment.this,
                             REQUEST_SHOW_COURSE_UNIT_DETAIL, courseData, component.getId(), isVideoMode);
                 }
             }
@@ -301,12 +298,12 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
                     new CourseOutlineAdapter.DownloadListener() {
                         @Override
                         public void download(List<? extends HasDownloadEntry> models) {
-                            downloadManager.downloadVideos(models, getActivity(), NewCourseOutlineFragment.this);
+                            downloadManager.downloadVideos(models, getActivity(), CourseOutlineFragment.this);
                         }
 
                         @Override
                         public void download(DownloadEntry videoData) {
-                            downloadManager.downloadVideo(videoData, getActivity(), NewCourseOutlineFragment.this);
+                            downloadManager.downloadVideo(videoData, getActivity(), CourseOutlineFragment.this);
                         }
 
                         @Override
@@ -536,7 +533,7 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
                                 for (int i = outlinePathSize + 1; i < leafPathSize - 1; i += 2) {
                                     final CourseComponent nextComp = leafPath.get(i);
                                     environment.getRouter().showCourseContainerOutline(
-                                            NewCourseOutlineFragment.this,
+                                            CourseOutlineFragment.this,
                                             REQUEST_SHOW_COURSE_UNIT_DETAIL, courseData,
                                             nextComp.getId(), leafCompId, isVideoMode);
                                 }

@@ -41,7 +41,7 @@ public class NewCourseOutlineActivity extends BaseSingleFragmentActivity {
 
     @Override
     public Fragment getFirstFragment() {
-        final Fragment fragment = new NewCourseOutlineFragment();
+        final Fragment fragment = new CourseOutlineFragment();
         fragment.setArguments(getIntent().getExtras());
         return fragment;
     }

@@ -173,9 +173,9 @@ public class CourseTabsDashboardFragment extends TabsBaseFragment {
     public List<FragmentItemModel> getFragmentItems() {
         ArrayList<FragmentItemModel> items = new ArrayList<>();
         // Add course outline tab
-        items.add(new FragmentItemModel(NewCourseOutlineFragment.class, courseData.getCourse().getName(),
+        items.add(new FragmentItemModel(CourseOutlineFragment.class, courseData.getCourse().getName(),
                 FontAwesomeIcons.fa_list_alt,
-                NewCourseOutlineFragment.makeArguments(courseData, null, null, false),
+                CourseOutlineFragment.makeArguments(courseData, null, null, false),
                 new FragmentItemModel.FragmentStateListener() {
                     @Override
                     public void onFragmentSelected() {
@@ -186,9 +186,9 @@ public class CourseTabsDashboardFragment extends TabsBaseFragment {
                 }));
         // Add videos tab
         if (environment.getConfig().isCourseVideosEnabled()) {
-            items.add(new FragmentItemModel(NewCourseOutlineFragment.class,
+            items.add(new FragmentItemModel(CourseOutlineFragment.class,
                     getResources().getString(R.string.videos_title), FontAwesomeIcons.fa_film
-                    , NewCourseOutlineFragment.makeArguments(courseData, null, null, true),
+                    , CourseOutlineFragment.makeArguments(courseData, null, null, true),
                     new FragmentItemModel.FragmentStateListener() {
                         @Override
                         public void onFragmentSelected() {
