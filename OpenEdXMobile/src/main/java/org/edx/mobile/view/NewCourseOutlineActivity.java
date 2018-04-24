@@ -28,8 +28,6 @@ public class NewCourseOutlineActivity extends BaseSingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // We don't need the drawer here
-        blockDrawerFromOpening();
 
         if (courseComponentId == null) {
             EnrolledCoursesResponse courseData = (EnrolledCoursesResponse) courseBundle.getSerializable(Router.EXTRA_COURSE_DATA);

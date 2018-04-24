@@ -2,7 +2,6 @@ package org.edx.mobile.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -83,8 +82,6 @@ public abstract  class CourseBaseActivity  extends BaseFragmentActivity
                 bundle = getIntent().getBundleExtra(Router.EXTRA_BUNDLE);
         }
         restore(bundle);
-
-        blockDrawerFromOpening();
     }
 
     @Override
@@ -195,19 +192,6 @@ public abstract  class CourseBaseActivity  extends BaseFragmentActivity
         View detailButton = v == null ? findViewById(R.id.last_accessed_button) :
             v.findViewById(R.id.last_accessed_button);
         detailButton.setOnClickListener(listener);
-    }
-
-
-    /**
-     * Call this function if you do not want to allow
-     * opening/showing the drawer(Navigation Fragment) on swiping left to right
-     */
-    protected void blockDrawerFromOpening(){
-        DrawerLayout drawerLayout = (DrawerLayout)
-            findViewById(R.id.drawer_layout);
-        if (drawerLayout != null) {
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
     }
 
     /**

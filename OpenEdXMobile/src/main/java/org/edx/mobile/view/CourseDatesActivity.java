@@ -34,8 +34,6 @@ public class CourseDatesActivity extends BaseSingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //This activity should not contain the drawer(Navigation Fragment).
-        blockDrawerFromOpening();
 
         setTitle(R.string.label_course_dates);
 

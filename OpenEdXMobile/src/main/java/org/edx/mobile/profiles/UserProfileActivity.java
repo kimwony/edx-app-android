@@ -14,6 +14,8 @@ import org.edx.mobile.util.Config;
 
 public class UserProfileActivity extends BaseSingleFragmentActivity {
     public static final String EXTRA_USERNAME = "username";
+    //TODO: 4143
+    @Deprecated
     public static final String EXTRA_SHOW_NAVIGATION_DRAWER = "showNavigationDrawer";
 
     @Inject
@@ -29,13 +31,6 @@ public class UserProfileActivity extends BaseSingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideToolbarShadow();
-        if (!config.isTabsLayoutEnabled()) {
-            if (getIntent().getBooleanExtra(EXTRA_SHOW_NAVIGATION_DRAWER, false)) {
-                addDrawer();
-            } else {
-                blockDrawerFromOpening();
-            }
-        }
         environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.PROFILE_VIEW);
     }
 
