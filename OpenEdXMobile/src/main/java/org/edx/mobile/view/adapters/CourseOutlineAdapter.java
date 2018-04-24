@@ -55,10 +55,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-/**
- * TODO: Rename class name to 'CourseOutlineAdapter' once old/deprecated  {@link CourseOutlineAdapter} is deleted.
- */
-public class NewCourseOutlineAdapter extends BaseAdapter {
+public class CourseOutlineAdapter extends BaseAdapter {
 
     private final Logger logger = new Logger(getClass().getName());
 
@@ -85,9 +82,9 @@ public class NewCourseOutlineAdapter extends BaseAdapter {
     private boolean isVideoMode;
     private boolean isOnCourseOutline;
 
-    public NewCourseOutlineAdapter(final Context context, Fragment fragment, final EnrolledCoursesResponse courseData,
-                                   final IEdxEnvironment environment, DownloadListener listener,
-                                   boolean isVideoMode, boolean isOnCourseOutline) {
+    public CourseOutlineAdapter(final Context context, Fragment fragment, final EnrolledCoursesResponse courseData,
+                                final IEdxEnvironment environment, DownloadListener listener,
+                                boolean isVideoMode, boolean isOnCourseOutline) {
         this.context = context;
         this.parentFragment = fragment;
         this.environment = environment;

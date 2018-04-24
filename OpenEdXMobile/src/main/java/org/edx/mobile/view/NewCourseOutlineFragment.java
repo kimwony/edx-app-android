@@ -54,7 +54,7 @@ import org.edx.mobile.services.CourseManager;
 import org.edx.mobile.services.LastAccessManager;
 import org.edx.mobile.services.VideoDownloadHelper;
 import org.edx.mobile.util.NetworkUtil;
-import org.edx.mobile.view.adapters.NewCourseOutlineAdapter;
+import org.edx.mobile.view.adapters.CourseOutlineAdapter;
 import org.edx.mobile.view.common.TaskProgressCallback;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
     private static final int AUTOSCROLL_DELAY_MS = 500;
     private static final int SNACKBAR_SHOWTIME_MS = 5000;
 
-    private NewCourseOutlineAdapter adapter;
+    private CourseOutlineAdapter adapter;
     private ListView listView;
     private EnrolledCoursesResponse courseData;
     private String courseComponentId;
@@ -297,8 +297,8 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
     private void initAdapter() {
         if (adapter == null) {
             // creating adapter just once
-            adapter = new NewCourseOutlineAdapter(getActivity(), this, courseData, environment,
-                    new NewCourseOutlineAdapter.DownloadListener() {
+            adapter = new CourseOutlineAdapter(getActivity(), this, courseData, environment,
+                    new CourseOutlineAdapter.DownloadListener() {
                         @Override
                         public void download(List<? extends HasDownloadEntry> models) {
                             downloadManager.downloadVideos(models, getActivity(), NewCourseOutlineFragment.this);
@@ -357,7 +357,7 @@ public class NewCourseOutlineFragment extends OfflineSupportBaseFragment
                         ((IconImageView) rowView.findViewById(R.id.bulk_download)).setIcon(FontAwesomeIcons.fa_download);
                     }
 
-                    final NewCourseOutlineAdapter.SectionRow rowItem = adapter.getItem(checkedItemPosition);
+                    final CourseOutlineAdapter.SectionRow rowItem = adapter.getItem(checkedItemPosition);
                     final List<CourseComponent> videos = rowItem.component.getVideos(true);
                     final int totalVideos = videos.size();
 
