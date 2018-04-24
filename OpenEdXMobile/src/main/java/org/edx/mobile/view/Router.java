@@ -190,7 +190,7 @@ public class Router {
         courseBundle.putSerializable(EXTRA_COURSE_DATA, model);
         courseBundle.putString(EXTRA_COURSE_COMPONENT_ID, courseComponentId);
 
-        final Intent intent = new Intent(activity, NewCourseOutlineActivity.class);
+        final Intent intent = new Intent(activity, CourseOutlineActivity.class);
         intent.putExtra(EXTRA_BUNDLE, courseBundle);
         intent.putExtra(EXTRA_LAST_ACCESSED_ID, lastAccessedId);
         intent.putExtra(EXTRA_IS_VIDEOS_MODE, isVideosMode);

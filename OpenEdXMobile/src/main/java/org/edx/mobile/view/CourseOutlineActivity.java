@@ -9,13 +9,7 @@ import org.edx.mobile.module.analytics.Analytics;
 
 import roboguice.inject.InjectExtra;
 
-
-/**
- * Top level outline for the Course
- *
- * TODO: Rename class name to 'CourseOutlineActivity' once old/deprecated {@link CourseOutlineActivity} is deleted.
- */
-public class NewCourseOutlineActivity extends BaseSingleFragmentActivity {
+public class CourseOutlineActivity extends BaseSingleFragmentActivity {
     @InjectExtra(Router.EXTRA_BUNDLE)
     private Bundle courseBundle;
 
