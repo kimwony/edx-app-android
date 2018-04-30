@@ -128,7 +128,7 @@ public class CourseOutlineFragment extends OfflineSupportBaseFragment
             }
         }
 
-        final View view = inflater.inflate(R.layout.fragment_course_outline_new, container, false);
+        final View view = inflater.inflate(R.layout.fragment_course_outline, container, false);
         listView = (ListView) view.findViewById(R.id.outline_list);
         errorNotification = new FullScreenErrorNotification(listView);
         loadingIndicator = view.findViewById(R.id.loading_indicator);
