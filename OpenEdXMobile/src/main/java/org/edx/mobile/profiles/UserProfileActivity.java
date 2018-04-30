@@ -14,17 +14,13 @@ import org.edx.mobile.util.Config;
 
 public class UserProfileActivity extends BaseSingleFragmentActivity {
     public static final String EXTRA_USERNAME = "username";
-    //TODO: 4143
-    @Deprecated
-    public static final String EXTRA_SHOW_NAVIGATION_DRAWER = "showNavigationDrawer";
 
     @Inject
     private Config config;
 
-    public static Intent newIntent(@NonNull Context context, @NonNull String username, boolean showNavigationDrawer) {
+    public static Intent newIntent(@NonNull Context context, @NonNull String username) {
         return new Intent(context, UserProfileActivity.class)
-                .putExtra(EXTRA_USERNAME, username)
-                .putExtra(EXTRA_SHOW_NAVIGATION_DRAWER, showNavigationDrawer);
+                .putExtra(EXTRA_USERNAME, username);
     }
 
     @Override
