@@ -52,9 +52,11 @@ public class CourseUnitMobileNotSupportedFragment extends CourseUnitFragment {
         v.findViewById(R.id.view_on_web_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BrowserUtil.open(getActivity(), unit.getWebUrl());
-                environment.getAnalyticsRegistry().trackOpenInBrowser(unit.getId()
-                        , unit.getCourseId(), unit.isMultiDevice(), unit.getBlockId());
+                environment.getRouter().showWebViewActivity(getActivity(), unit.getWebUrl(),
+                        unit.getDisplayName());
+//                BrowserUtil.open(getActivity(), unit.getWebUrl());
+//                environment.getAnalyticsRegistry().trackOpenInBrowser(unit.getId()
+//                        , unit.getCourseId(), unit.isMultiDevice(), unit.getBlockId());
             }
         });
         return v;
