@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.inject.Inject;
 
@@ -39,9 +38,6 @@ import roboguice.inject.InjectView;
 @ContentView(R.layout.activity_course_base)
 public abstract  class CourseBaseActivity  extends BaseFragmentActivity
         implements TaskProcessCallback, RefreshListener{
-
-    @InjectView(R.id.last_accessed_bar)
-    View lastAccessBar;
 
     @InjectView(R.id.loading_indicator)
     ProgressBar progressWheel;
@@ -174,24 +170,6 @@ public abstract  class CourseBaseActivity  extends BaseFragmentActivity
         if(progressWheel!=null){
             progressWheel.setVisibility(View.GONE);
         }
-    }
-
-    protected void hideLastAccessedView(View v) {
-        try{
-            lastAccessBar.setVisibility(View.GONE);
-        }catch(Exception e){
-            logger.error(e);
-        }
-    }
-
-    protected void showLastAccessedView(View v, String title, View.OnClickListener listener) {
-        lastAccessBar.setVisibility(View.VISIBLE);
-        View lastAccessTextView = v == null ? findViewById(R.id.last_accessed_text) :
-            v.findViewById(R.id.last_accessed_text);
-        ((TextView)lastAccessTextView).setText(title);
-        View detailButton = v == null ? findViewById(R.id.last_accessed_button) :
-            v.findViewById(R.id.last_accessed_button);
-        detailButton.setOnClickListener(listener);
     }
 
     /**

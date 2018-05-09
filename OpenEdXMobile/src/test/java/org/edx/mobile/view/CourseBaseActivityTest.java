@@ -17,7 +17,6 @@ import org.robolectric.util.ActivityController;
 
 import static org.assertj.android.api.Assertions.assertThat;
 import static org.edx.mobile.http.util.CallUtil.executeStrict;
-import static org.junit.Assert.assertNotNull;
 
 public abstract class CourseBaseActivityTest extends BaseFragmentActivityTest {
     /**
@@ -87,7 +86,6 @@ public abstract class CourseBaseActivityTest extends BaseFragmentActivityTest {
         CourseBaseActivity activity = controller.get();
 
         controller.create();
-        assertNotNull(activity.findViewById(R.id.last_accessed_bar));
 
         controller.postCreate(null).resume().postResume().visible();
     }
