@@ -49,6 +49,9 @@ import static org.edx.mobile.util.WebViewUtil.EMPTY_HTML;
  * Javascript can also be passed in arguments for evaluation.
  */
 public class AuthenticatedWebView extends FrameLayout implements RefreshListener {
+
+    EdxCookieManager edxCookieManager = new EdxCookieManager();
+
     protected final Logger logger = new Logger(getClass().getName());
 
     @Inject
@@ -130,8 +133,10 @@ public class AuthenticatedWebView extends FrameLayout implements RefreshListener
                         case HttpStatus.FORBIDDEN:
                         case HttpStatus.UNAUTHORIZED:
                         case HttpStatus.NOT_FOUND:
-                            EdxCookieManager.getSharedInstance(getContext())
-                                    .tryToRefreshSessionCookie();
+//                            edxCookieManager.flag = false;
+                                EdxCookieManager.getSharedInstance(getContext())
+                                        .tryToRefreshSessionCookie();
+//                            edxCookieManager.flag = true;
                             break;
                         default:
                             hideLoadingProgress();

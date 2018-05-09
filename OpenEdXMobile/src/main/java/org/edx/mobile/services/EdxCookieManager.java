@@ -2,7 +2,10 @@ package org.edx.mobile.services;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
@@ -29,6 +32,21 @@ import roboguice.RoboGuice;
  */
 public class EdxCookieManager {
 
+//    public static final int MESSAGE_ID = 1;
+//
+//    Handler handler = new Handler() {
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case MESSAGE_ID: {
+//                    flag = true;
+//                }
+//                break;
+//                default:
+//                    break;
+//            }
+//        }
+//    };
+
     // We'll assume that cookies are valid for at least one hour; after that
     // they'll be requeried on API levels lesser than Marshmallow (which
     // provides an error callback with the HTTP error code) prior to usage.
@@ -48,6 +66,8 @@ public class EdxCookieManager {
 
     private Call<RequestBody> loginCall;
 
+    static public boolean login_flag = false;
+
     public static synchronized EdxCookieManager getSharedInstance(@NonNull final Context context) {
         if ( instance == null ) {
             instance = new EdxCookieManager();
@@ -60,12 +80,17 @@ public class EdxCookieManager {
         return instance;
     }
 
+    public void setNullLoginCall() {
+        loginCall = null;
+    }
+
     public void clearWebWiewCookie() {
         CookieManager.getInstance().removeAllCookie();
         authSessionCookieExpiration = -1;
+//        loginCall = null;
     }
 
-    public synchronized  void tryToRefreshSessionCookie( ){
+    public synchronized boolean tryToRefreshSessionCookie( ){
         if (loginCall == null || loginCall.isCanceled()) {
             loginCall = loginService.login();
             loginCall.enqueue(new Callback<RequestBody>() {
@@ -77,7 +102,10 @@ public class EdxCookieManager {
                     for (Cookie cookie : Cookie.parseAll(
                             call.request().url(), response.headers())) {
                         cookieManager.setCookie(config.getApiHostURL(), cookie.toString());
+                        Log.d("start@@@@", "100"); //로그인 될때
                     }
+                    Log.d("start@@@@", "200"); //로그인이 완료됨
+                    login_flag = true;
                     authSessionCookieExpiration = System.currentTimeMillis() + FRESHNESS_INTERVAL;
                     EventBus.getDefault().post(new SessionIdRefreshEvent(true));
                     loginCall = null;
@@ -91,6 +119,7 @@ public class EdxCookieManager {
                 }
             });
         }
+        return false;
     }
 
     public boolean isSessionCookieMissingOrExpired() {
