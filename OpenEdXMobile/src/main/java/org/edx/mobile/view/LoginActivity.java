@@ -83,6 +83,9 @@ public class LoginActivity
     protected LoginPresenter.LoginViewInterface createView(@Nullable Bundle savedInstanceState) {
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
+        activityLoginBinding.emailEt.setText("ruddnjs7148@kotech.co.kr");
+        activityLoginBinding.passwordEt.setText("Kotech!2#4");
+
         hideSoftKeypad();
         socialLoginDelegate = new SocialLoginDelegate(this, savedInstanceState, this, environment.getConfig(), environment.getLoginPrefs());
 
@@ -245,8 +248,12 @@ public class LoginActivity
             return;
         }
 
+
+
+
         final String emailStr = activityLoginBinding.emailEt.getText().toString().trim();
         final String passwordStr = activityLoginBinding.passwordEt.getText().toString().trim();
+
 
         if (activityLoginBinding.emailEt != null && emailStr.length() == 0) {
             showAlertDialog(getString(R.string.login_error),

@@ -257,7 +257,7 @@
 
         <activity
             android:name=".view.dialog.WebViewActivity"
-            android:screenOrientation="portrait" />
+            android:configChanges="orientation|screenSize" />
 
         <!--네이버 추가 start -->
         <activity android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
