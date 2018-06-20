@@ -61,7 +61,7 @@ public interface LoginService {
     @NonNull
     @FormUrlEncoded
     //@POST(ApiConstants.URL_ACCESS_TOKEN)
-    @POST("https://www.kmooc.kr/oauth2/access_token/")
+    @POST(ApiConstants.URL_ACCESS_TOKEN)
     Call<AuthResponse> getAccessToken(@Field("grant_type") String grant_type,
                                       @Field("client_id") String client_id,
                                       @Field("username") String username,

@@ -23,7 +23,7 @@ public class LoginPresenterTest extends PresenterTest<LoginPresenter, LoginPrese
         when(config.getGoogleConfig()).thenReturn(new Config.GoogleConfig(false));
         when(config.getFacebookConfig()).thenReturn(new Config.FacebookConfig(false, "dummy app id"));
         startPresenter(new LoginPresenter(config, zeroRatedNetworkInfo));
-        verify(view).setSocialLoginButtons(false, false);
+//        verify(view).setSocialLoginButtons(false, false);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class LoginPresenterTest extends PresenterTest<LoginPresenter, LoginPrese
         when(config.getGoogleConfig()).thenReturn(new Config.GoogleConfig(false));
         when(config.getFacebookConfig()).thenReturn(new Config.FacebookConfig(true, "dummy app id"));
         startPresenter(new LoginPresenter(config, zeroRatedNetworkInfo));
-        verify(view).setSocialLoginButtons(false, true);
+//        verify(view).setSocialLoginButtons(false, true);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class LoginPresenterTest extends PresenterTest<LoginPresenter, LoginPrese
         when(config.getGoogleConfig()).thenReturn(new Config.GoogleConfig(true));
         when(config.getFacebookConfig()).thenReturn(new Config.FacebookConfig(false, "dummy app id"));
         startPresenter(new LoginPresenter(config, zeroRatedNetworkInfo));
-        verify(view).setSocialLoginButtons(true, false);
+//        verify(view).setSocialLoginButtons(true, false);
     }
 
     @Test
@@ -48,6 +48,6 @@ public class LoginPresenterTest extends PresenterTest<LoginPresenter, LoginPrese
         when(config.getGoogleConfig()).thenReturn(new Config.GoogleConfig(true));
         when(config.getFacebookConfig()).thenReturn(new Config.FacebookConfig(true, "dummy app id"));
         startPresenter(new LoginPresenter(config, zeroRatedNetworkInfo));
-        verify(view).setSocialLoginButtons(false, false);
+//        verify(view).setSocialLoginButtons(false, false);
     }
 }

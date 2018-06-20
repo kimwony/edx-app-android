@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 
 import com.google.inject.Inject;
 import com.google.inject.Key;
@@ -69,6 +70,8 @@ public class RoboAppCompatActivity extends AppCompatActivity implements RoboCont
         injector.injectMembersWithoutViews(this);
         super.onCreate(savedInstanceState);
         eventManager.fire(new OnCreateEvent<Activity>(this, savedInstanceState));
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE); // 캡쳐 방지
     }
 
     @Override
